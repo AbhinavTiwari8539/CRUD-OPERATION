@@ -2,6 +2,7 @@ package com.app.controller;
 
 import java.util.List;
 
+import com.app.DTO.BookDTO;
 import com.app.model.Books;
 import com.app.service.BooksService;
 
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,32 +22,39 @@ public class BooksController {
 	@Autowired
 	public BooksService booksService;
 	
-	@PostMapping("/Books")
-	public Books getAl(@RequestBody Books book){
-		return (Books) booksService.getAll(book);
-	}
 	
 	@GetMapping("/Books")
-	private List<Books> getAllBooks(){
+	private List<BookDTO> getBookInfo(){
 		
-		return booksService.showAllBooks();
+		return booksService.getBookInfo();
 	}
 	
-	@GetMapping("/Books/{bookid}")
-	private Books getBooks(@PathVariable("bookid")int bookid) {
-		
-		return booksService.getBooksById(bookid);
-		
+	@PostMapping("/Books")
+	public Books createBookDetails(@RequestBody Books book){
+		return booksService.createdAllDetails(book);
 	}
-	
-	@DeleteMapping("/Books/{id}")
-	private void deleteBook(@PathVariable("id") int bookid) {
-		
-		booksService.Delete(bookid);
-	}
-	
+//	
+//
+//	
+//	@GetMapping("/Books/{bookid}")
+//	private Books getSingleBookDetails(@PathVariable("bookid")Long bookid) throws Exception {
+//		
+//		if(bookid<=0) {
+//			throw new Exception("invalid BookId");
+//		}
+//		
+//		return booksService.getBooksById(bookid);
+//		
+//	}
+//	
+//	@DeleteMapping("/Books/{id}")
+//	private void deleteBookDetails(@PathVariable("id") Long bookid) {
+//		
+//		booksService.Delete(bookid);
+//	}
+//	
 	@PutMapping("/Books/{id}")
-	private Books updateBook(@PathVariable("id")int id, @RequestBody  Books book) {
+	private Books updateBookDetails(@PathVariable("id")Long id, @RequestBody  Books book) {
 		
 		return booksService.UpdateData(id, book);
 	}
