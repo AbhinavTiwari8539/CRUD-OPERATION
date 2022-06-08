@@ -2,6 +2,8 @@ package com.app.DTO;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.Column;
+
 public class BookDTO {
 	
 	private Long bookId;
@@ -10,10 +12,11 @@ public class BookDTO {
 	
 	private String author;
 	
+	@Column(name="created_at")
 	private LocalDateTime created_at;
 	
+	@Column(name="updated_at")
 	private LocalDateTime updated_at;
-
 
 	public LocalDateTime getCreated_at() {
 		return created_at;

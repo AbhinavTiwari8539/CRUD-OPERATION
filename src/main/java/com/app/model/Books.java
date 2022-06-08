@@ -9,7 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+
 @Entity
+@SQLDelete(sql = "UPDATE bookrecord SET is_deleted = true WHERE id=?")
+@Where(clause = "is_deleted=false")
 @Table(name="bookrecord")
 public class Books {
 	
@@ -23,11 +28,23 @@ public class Books {
 	@Column(name="book_price")
 	private Double price;
 	
+	@Column(name="is_deleted")
+	private boolean isDeleted = Boolean.FALSE;
+	
+	
 	@Column(name="created_at")
 	private LocalDateTime created_at;
 	
 	@Column(name="updated_at")
 	private LocalDateTime updated_at;
+
+
+	public boolean isDeleted() {
+		return isDeleted;
+	}
+	public void setDeleted(boolean isDeleted) {
+		this.isDeleted = isDeleted;
+	}
 
 
 	public LocalDateTime getCreated_at() {
@@ -66,9 +83,6 @@ public class Books {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-	
-	
-
 	
 
 }

@@ -1,6 +1,5 @@
 package com.app.service;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,7 +9,6 @@ import com.app.model.Books;
 import com.app.repo.BooksRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.datetime.joda.LocalDateTimeParser;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,9 +31,9 @@ public class BooksService {
 		dto.setBookId(book.getBookId());
 		dto.setBookName(book.getBookName());
 		dto.setAuthor(book.getAuthor());
-		
 		dto.setCreated_at(book.getCreated_at());
 		dto.setUpdated_at(book.getUpdated_at());
+		
 		return dto;
 		
 	}
@@ -59,21 +57,28 @@ public class BooksService {
 //		return (List<Books>) booksRepository.findAll();
 //	}
 //	
-//	public void Delete(Long bookid) {
-//		
-//		booksRepository.deleteById(bookid);
-//		
-//	}
-//	
+	public void Delete(Long bookid) {
+		
+		booksRepository.deleteById(bookid);
+		
+	}
+	
 	public Books UpdateData(Long id,Books book) {
-		Books b = booksRepository.findById(id).orElseThrow();
+		Books b = booksRepository.findById(id).get();
+		try {
+			if(b!=null) {
+				b.setAuthor(book.getAuthor());
+				b.setBookName(book.getBookName());
+				b.setCreated_at(b.getCreated_at());
+				b.setUpdated_at(LocalDateTime.now());
+			}	
+		} 
+		catch(Exception e) {
+			System.out.println("No Data Present with this id");
+		}
 		
 		
-		b.setAuthor(book.getAuthor());
-		b.setBookName(book.getBookName());
-		b.setPrice(book.getPrice());
-		b.setCreated_at(b.getCreated_at());
-		b.setUpdated_at(LocalDateTime.now());
+		
 		return booksRepository.save(b);
 		
 	}

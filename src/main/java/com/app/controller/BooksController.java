@@ -47,12 +47,12 @@ public class BooksController {
 //		
 //	}
 //	
-//	@DeleteMapping("/Books/{id}")
-//	private void deleteBookDetails(@PathVariable("id") Long bookid) {
-//		
-//		booksService.Delete(bookid);
-//	}
-//	
+	@DeleteMapping("/Books/{id}")
+	private void deleteBookDetails(@PathVariable("id") Long bookid) {
+		
+		booksService.Delete(bookid);
+	}
+	
 	@PutMapping("/Books/{id}")
 	private Books updateBookDetails(@PathVariable("id")Long id, @RequestBody  Books book) {
 		
