@@ -30,33 +30,29 @@ public class BooksController {
 	}
 	
 	@PostMapping("/Books")
-	public Books createBookDetails(@RequestBody Books book){
+	public String createBookDetails(@RequestBody Books book){
 		return booksService.createdAllDetails(book);
 	}
-//	
-//
-//	
-//	@GetMapping("/Books/{bookid}")
-//	private Books getSingleBookDetails(@PathVariable("bookid")Long bookid) throws Exception {
-//		
-//		if(bookid<=0) {
-//			throw new Exception("invalid BookId");
-//		}
-//		
-//		return booksService.getBooksById(bookid);
-//		
-//	}
-//	
-//	@DeleteMapping("/Books/{id}")
-//	private void deleteBookDetails(@PathVariable("id") Long bookid) {
-//		
-//		booksService.Delete(bookid);
-//	}
-//	
-	@PutMapping("/Books/{id}")
-	private Books updateBookDetails(@PathVariable("id")Long id, @RequestBody  Books book) {
+	
+
+	
+	@GetMapping("/Books/{bookid}")
+	private BookDTO getSingleBookDetails(@PathVariable("bookid")Long bookid) {
 		
-		return booksService.UpdateData(id, book);
+		return booksService.getBooksById(bookid);
+		
+	}
+	
+	@DeleteMapping("/Books/{id}")
+	private void deleteBookDetails(@PathVariable("id") Long bookid) {
+		
+		booksService.Delete(bookid);
+	}
+	
+	@PutMapping("/Books/{id}")
+	private String updateBookDetails(@PathVariable("id")Long id, @RequestBody  Books book) {
+		
+		 return booksService.UpdateData(id, book);
 	}
 	
 	

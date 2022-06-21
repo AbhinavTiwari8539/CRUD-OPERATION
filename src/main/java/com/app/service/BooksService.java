@@ -1,16 +1,16 @@
 package com.app.service;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import com.app.DTO.BookDTO;
 import com.app.model.Books;
+
 import com.app.repo.BooksRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.datetime.joda.LocalDateTimeParser;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +18,7 @@ public class BooksService {
 	
 	@Autowired
 	public BooksRepository booksRepository;
+	
 	
 	
 	public List<BookDTO>getBookInfo(){
@@ -34,47 +35,50 @@ public class BooksService {
 		dto.setBookName(book.getBookName());
 		dto.setAuthor(book.getAuthor());
 		
-		dto.setCreated_at(book.getCreated_at());
-		dto.setUpdated_at(book.getUpdated_at());
 		return dto;
 		
 	}
 
-	public Books createdAllDetails(Books book) {
-		book.setCreated_at(LocalDateTime.now());
+	public String createdAllDetails(Books book) {
+		Books create = booksRepository.save(book);
 		
-		return booksRepository.save(book);
-		
+		return "Saved";
 		
 	}
-//	
-//	public Books getBooksById(Long id) { 
-//		
-//	return booksRepository.findById(id).orElseThrow();
-//	
-//	}  
-//	
-//	public List<Books> showAllBooks() {
-//		
-//		return (List<Books>) booksRepository.findAll();
-//	}
-//	
-//	public void Delete(Long bookid) {
-//		
-//		booksRepository.deleteById(bookid);
-//		
-//	}
-//	
-	public Books UpdateData(Long id,Books book) {
-		Books b = booksRepository.findById(id).orElseThrow();
+	
+	public BookDTO getBooksById(Long id) { 
 		
+	Books book = booksRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No Book Id Present = " + id));
+	
+	BookDTO responce = new BookDTO();
+	responce.setBookId(book.getBookId());
+	responce.setAuthor(book.getAuthor());
+	responce.setBookName(book.getBookName());
+	return responce;
+	
+	}  
+	
+	public List<BookDTO> showAllBooks() {
+
+		Books bk = (Books) booksRepository.findAll();
 		
+		BookDTO show = new BookDTO();
+		return (List<BookDTO>) show;
+	}
+	
+	public void Delete(Long bookid) {
+		
+		booksRepository.deleteById(bookid);
+		
+	}
+	
+	public String UpdateData(Long id,Books book) {
+		Books b = booksRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No Book Id Present = " + id));
 		b.setAuthor(book.getAuthor());
 		b.setBookName(book.getBookName());
 		b.setPrice(book.getPrice());
-		b.setCreated_at(b.getCreated_at());
-		b.setUpdated_at(LocalDateTime.now());
-		return booksRepository.save(b);
+	 booksRepository.save(b);
+	 return "Succsessfully Updated id "+id;
 		
 	}
 
