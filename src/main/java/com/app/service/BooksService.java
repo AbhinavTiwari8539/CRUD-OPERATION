@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
+import com.app.Response;
 import com.app.DTO.BookDTO;
 import com.app.model.Books;
 
@@ -12,6 +13,7 @@ import com.app.repo.BooksRepository;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,9 +49,7 @@ public class BooksService {
 		bt.setBookId(bk.getBookId());
 		bt.setAuthor(bk.getAuthor());
 		bt.setBookName(bk.getBookName());
-//		Gson gson= new GsonBuilder().setPrettyPrinting().create();
-//		String json = gson.toJson(bt);
-		
+
 		return bt;
 		
 	}
@@ -72,13 +72,19 @@ public class BooksService {
 		
 	}
 	
-	public String UpdateData(Long id,Books book) {
+	public Response UpdateData(Long id,Books book) {
 		Books b = booksRepository.findById(id).orElseThrow(() -> new NoSuchElementException("No Book Id Present = " + id));
 		b.setAuthor(book.getAuthor());
 		b.setBookName(book.getBookName());
 		b.setPrice(book.getPrice());
 	 booksRepository.save(b);
-	 return "Succsessfully Updated id "+id;
+	 
+	 
+	 
+	 
+	 Response response= new Response();
+		response.setResponse("successfully Updated ");
+	 return response;
 		
 	}
 

@@ -1,6 +1,6 @@
 package com.app.DTO;
 
-
+import com.app.model.Books;
 
 public class BookDTO {
 	
@@ -34,6 +34,21 @@ public class BookDTO {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public void setStatus(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setMessage(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setData(Books book) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
