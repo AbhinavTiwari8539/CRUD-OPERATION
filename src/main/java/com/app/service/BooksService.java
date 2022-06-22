@@ -9,6 +9,8 @@ import com.app.DTO.BookDTO;
 import com.app.model.Books;
 
 import com.app.repo.BooksRepository;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,10 +41,16 @@ public class BooksService {
 		
 	}
 
-	public String createdAllDetails(Books book) {
-		Books create = booksRepository.save(book);
+	public BookDTO createdAllDetails(Books book) {
+		Books bk = booksRepository.save(book);
+		BookDTO bt = new BookDTO();
+		bt.setBookId(bk.getBookId());
+		bt.setAuthor(bk.getAuthor());
+		bt.setBookName(bk.getBookName());
+//		Gson gson= new GsonBuilder().setPrettyPrinting().create();
+//		String json = gson.toJson(bt);
 		
-		return "Saved";
+		return bt;
 		
 	}
 	
@@ -57,14 +65,6 @@ public class BooksService {
 	return responce;
 	
 	}  
-	
-	public List<BookDTO> showAllBooks() {
-
-		Books bk = (Books) booksRepository.findAll();
-		
-		BookDTO show = new BookDTO();
-		return (List<BookDTO>) show;
-	}
 	
 	public void Delete(Long bookid) {
 		

@@ -30,7 +30,7 @@ public class BooksController {
 	}
 	
 	@PostMapping("/Books")
-	public String createBookDetails(@RequestBody Books book){
+	public BookDTO createBookDetails(@RequestBody Books book){
 		return booksService.createdAllDetails(book);
 	}
 	
@@ -42,6 +42,8 @@ public class BooksController {
 		return booksService.getBooksById(bookid);
 		
 	}
+	
+	
 	
 	@DeleteMapping("/Books/{id}")
 	private void deleteBookDetails(@PathVariable("id") Long bookid) {
