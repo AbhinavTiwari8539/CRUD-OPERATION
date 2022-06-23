@@ -1,13 +1,12 @@
 package com.app.controller;
 
 import java.util.List;
+import java.util.Map;
 
-import com.app.Response;
 import com.app.DTO.BookDTO;
 import com.app.model.Books;
 import com.app.service.BooksService;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,41 +27,35 @@ public class BooksController {
 	
 	
 	@GetMapping("/Books")
-	private ResponseEntity<List<BookDTO>> getBookInfo(){
+	private List<BookDTO> getBookInfo(){
 		
-		return new ResponseEntity<>(booksService.getBookInfo(),HttpStatus.OK);
+		return booksService.getBookInfo();
 	}
 	
 	@PostMapping("/Books")
-	public ResponseEntity< Response> createBookDetails(@RequestBody Books book){
-	 booksService.createdAllDetails(book);
-		Response r=new Response();
-		r.setResponse("Sucess");
-	return new ResponseEntity<>(r, HttpStatus.OK);
+	public ResponseEntity<String> createBookDetails(@RequestBody Books book){
+
+		 return new ResponseEntity<>("Data Createds ", HttpStatus.OK);
 	}
 
 	@GetMapping("/Books/{bookid}")
-	private  ResponseEntity<BookDTO> getSingleBookDetails(@PathVariable("bookid")Long bookid) {
-		return new ResponseEntity<>(booksService.getBooksById(bookid), HttpStatus.OK);
+	private  BookDTO getSingleBookDetails(@PathVariable("bookid")Long bookid) {
+		return booksService.getBooksById(bookid);
 
 	}
 
 	@DeleteMapping("/Books/{id}")
-	private ResponseEntity< Response> deleteBookDetails(@PathVariable("id") Long bookid) {
+	private ResponseEntity<String> deleteBookDetails(@PathVariable("id") Long bookid) {
 		
 		booksService.Delete(bookid);
-		Response r=new Response();
-		r.setResponse("Data Deleted");
-		return new ResponseEntity<>(r, HttpStatus.OK);
+		 return new ResponseEntity<>("Data Deleted", HttpStatus.OK);
 	}
 	
 	@PutMapping("/Books/{id}")
-	private  ResponseEntity<Response> updateBookDetails(@PathVariable("id")Long id, @RequestBody  Books book) {
+	private  ResponseEntity<String> updateBookDetails(@PathVariable("id")Long id, @RequestBody  Books book) {
 		
-		 booksService.UpdateData(id, book);
-		 Response r=new Response();
-			r.setResponse("Data Updated");
-		 return new ResponseEntity<>(r, HttpStatus.OK);
+		booksService.UpdateData(id, book);
+		 return new ResponseEntity<>("Success ", HttpStatus.OK);
 	}
 	
 	
