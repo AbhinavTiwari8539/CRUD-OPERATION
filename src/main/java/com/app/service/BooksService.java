@@ -40,23 +40,24 @@ public class BooksService {
 
 	public Books createdAllDetails(Books book) {
 		book.setCreated_at(LocalDateTime.now());
+		book.setUpdated_at(LocalDateTime.now());
 		
 		return booksRepository.save(book);
 		
 		
 	}
-//	
-//	public Books getBooksById(Long id) { 
-//		
-//	return booksRepository.findById(id).orElseThrow();
-//	
-//	}  
-//	
-//	public List<Books> showAllBooks() {
-//		
-//		return (List<Books>) booksRepository.findAll();
-//	}
-//	
+	
+	public Books getBooksById(Long id) { 
+		
+	return booksRepository.findById(id).orElseThrow();
+	
+	}  
+	
+	public List<Books> showAllBooks() {
+		
+		return (List<Books>) booksRepository.findAll();
+	}
+	
 	public void Delete(Long bookid) {
 		
 		booksRepository.deleteById(bookid);

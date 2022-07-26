@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class BooksController {
 
 	
@@ -33,20 +35,20 @@ public class BooksController {
 	public Books createBookDetails(@RequestBody Books book){
 		return booksService.createdAllDetails(book);
 	}
-//	
-//
-//	
-//	@GetMapping("/Books/{bookid}")
-//	private Books getSingleBookDetails(@PathVariable("bookid")Long bookid) throws Exception {
-//		
-//		if(bookid<=0) {
-//			throw new Exception("invalid BookId");
-//		}
-//		
-//		return booksService.getBooksById(bookid);
-//		
-//	}
-//	
+	
+
+	
+	@GetMapping("/Books/{bookid}")
+	private Books getSingleBookDetails(@PathVariable("bookid")Long bookid) throws Exception {
+		
+		if(bookid<=0) {
+			throw new Exception("invalid BookId");
+		}
+		
+		return booksService.getBooksById(bookid);
+		
+	}
+	
 	@DeleteMapping("/Books/{id}")
 	private void deleteBookDetails(@PathVariable("id") Long bookid) {
 		
