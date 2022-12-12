@@ -1,12 +1,15 @@
 package com.app.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import com.app.DTO.BookDTO;
 import com.app.model.Books;
 import com.app.service.BooksService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,33 +33,29 @@ public class BooksController {
 	}
 	
 	@PostMapping("/Books")
-	public Books createBookDetails(@RequestBody Books book){
-		return booksService.createdAllDetails(book);
+	public ResponseEntity<String> createBookDetails(@RequestBody Books book){
+
+		 return new ResponseEntity<>("Data Createds ", HttpStatus.OK);
 	}
-//	
-//
-//	
-//	@GetMapping("/Books/{bookid}")
-//	private Books getSingleBookDetails(@PathVariable("bookid")Long bookid) throws Exception {
-//		
-//		if(bookid<=0) {
-//			throw new Exception("invalid BookId");
-//		}
-//		
-//		return booksService.getBooksById(bookid);
-//		
-//	}
-//	
-//	@DeleteMapping("/Books/{id}")
-//	private void deleteBookDetails(@PathVariable("id") Long bookid) {
-//		
-//		booksService.Delete(bookid);
-//	}
-//	
-	@PutMapping("/Books/{id}")
-	private Books updateBookDetails(@PathVariable("id")Long id, @RequestBody  Books book) {
+
+	@GetMapping("/Books/{bookid}")
+	private  BookDTO getSingleBookDetails(@PathVariable("bookid")Long bookid) {
+		return booksService.getBooksById(bookid);
+
+	}
+
+	@DeleteMapping("/Books/{id}")
+	private ResponseEntity<String> deleteBookDetails(@PathVariable("id") Long bookid) {
 		
-		return booksService.UpdateData(id, book);
+		booksService.Delete(bookid);
+		 return new ResponseEntity<>("Data Deleted", HttpStatus.OK);
+	}
+	
+	@PutMapping("/Books/{id}")
+	private  ResponseEntity<String> updateBookDetails(@PathVariable("id")Long id, @RequestBody  Books book) {
+		
+		booksService.UpdateData(id, book);
+		 return new ResponseEntity<>("Success ", HttpStatus.OK);
 	}
 	
 	

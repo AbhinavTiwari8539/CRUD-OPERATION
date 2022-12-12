@@ -1,6 +1,6 @@
 package com.app.DTO;
 
-import java.time.LocalDateTime;
+import com.app.model.Books;
 
 public class BookDTO {
 	
@@ -10,26 +10,7 @@ public class BookDTO {
 	
 	private String author;
 	
-	private LocalDateTime created_at;
 	
-	private LocalDateTime updated_at;
-
-
-	public LocalDateTime getCreated_at() {
-		return created_at;
-	}
-
-	public void setCreated_at(LocalDateTime created_at) {
-		this.created_at = created_at;
-	}
-
-	public LocalDateTime getUpdated_at() {
-		return updated_at;
-	}
-
-	public void setUpdated_at(LocalDateTime updated_at) {
-		this.updated_at = updated_at;
-	}
 
 	public Long getBookId() {
 		return bookId;
@@ -53,6 +34,21 @@ public class BookDTO {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public void setStatus(boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setMessage(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setData(Books book) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
